@@ -3,7 +3,9 @@
 
 #include <bitset>
 #include <map>
-#include "Piece.h"
+#include <string>
+#include <iostream>
+#include <vector>
 
 #define BITBOARD bitset<64>
 
@@ -55,30 +57,19 @@ extern const BITBOARD not_ab_file;
 
 //***----------------------------***//
 
-class Board: public sf::Drawable{
+class Board{
     public:
-        Board(){};
-        Board(int width, int height);
-
         string boardNames[12] = {"whitePawn","whiteKnight","whiteBishop","whiteRook","whiteQueen","whiteKing",
                                  "blackPawn","blackKnight","blackBishop","blackRook","blackQueen","blackKing"};
 
-        int window_w = 0;
-        int window_h = 0;
         int side_to_move = -1;
         int enpassant_square = no_sq;
         int castling_rights;
-        sf::Vector2f pieceOffset;
         string FEN;
-        vector<sf::RectangleShape> rectangles;
 
         // Methods
         void printBoard(int);
         void printBitboard(BITBOARD);
-        void initBoard(int width, int height);
-        void flipBoard();
-        void findPieces();
-        void placePiece(int, sf::Vector2f, int);
         int getBit(BITBOARD, int);
         void setBit(int board, int sqr){bitboards[board].set(sqr);};
         static BITBOARD setBit(BITBOARD board, int sqr){board.set(sqr); return board;}
@@ -88,18 +79,9 @@ class Board: public sf::Drawable{
 
         vector<BITBOARD> bitboards;      // vector to hold piece bitboards ordered by encoded piece enumeration
         vector<BITBOARD> occupancies;
-        vector<Piece> pieces;
         
+        Board();
         ~Board(){};
-
-    private:
-        // Objects, Vectors, enums, etc
-        
-
-        // Attributes
-
-        // Methods
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 #endif //BOARD_H

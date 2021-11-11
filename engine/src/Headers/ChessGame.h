@@ -58,13 +58,12 @@ struct moves{
     int count;          // move count
 };
 
-class ChessGame: public sf::Drawable {
+class ChessGame{
     public:
         // objects, vectors, enums, etc.
         Board board;
         moves m_list_of_moves[1];
         stack<string> move_history;
-        sf::RenderTarget &m_target;
 
         // attributes
         int m_ply = 0;              // half-move counter
@@ -73,12 +72,8 @@ class ChessGame: public sf::Drawable {
         int m_legal_moves_num = 0;
 
         // methods
+        void printFullCharBoard();
         //---generating attacks---//
-        // unsigned int get_random_U32_number();
-        // BITBOARD get_random_U64_number();
-        // BITBOARD get_random_magic_number();
-        // BITBOARD find_magic_number(int, int, int);
-        // void init_magic();
         BITBOARD generatePawnAttacks(int side, int square);
         BITBOARD generateKnightAttacks(int square);
         BITBOARD generateKingAttacks(int square);
@@ -120,11 +115,8 @@ class ChessGame: public sf::Drawable {
         //---Artificial Intelligence---//
         void search_position(int depth);
         int negamax(int alpha, int beta, int depth);
-        int quiescence(int alpha, int beta);
 
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-        ChessGame(sf::RenderTarget& target);
-        // ChessGame() {board = Board(800,800);};
+        ChessGame();
         ~ChessGame(){};
 };
 

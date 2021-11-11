@@ -17,18 +17,7 @@ const char *square_to_coordinates[] = {
                    "a2","b2","c2","d2","e2","f2","g2","h2",
                    "a1","b1","c1","d1","e1","f1","g1","h1", "-"};
 
-struct color{
-    int r;
-    int g;
-    int b;
-};
-color light = {255, 248, 227}; //light squares
-color dark = {122, 109, 94};   //dark squares
-
-Board::Board(int width, int height){
-    window_w = width;
-    window_h = height;
-
+Board::Board(){
     // initializing boards and pieces
     BITBOARD temp;
     temp.all();
@@ -37,172 +26,14 @@ Board::Board(int width, int height){
         if(i<3) occupancies.push_back(temp);
     }
 
-    // white Pawns
-    for(int w=0; w<8; w++){
-        pieces.push_back(Piece(P, true));
-    }
-    // white Knights
-    for(int w=0; w<2; w++){
-        pieces.push_back(Piece(N, true));
-    }
-    // white Bishops
-    for(int w=0; w<2; w++){
-        pieces.push_back(Piece(B, true));
-    }
-    // white Rooks
-    for(int w=0; w<2; w++){
-        pieces.push_back(Piece(R, true));
-    }
-    pieces.push_back(Piece(Q, true));
-    pieces.push_back(Piece(K, true));
-
-    // black Pawns
-    for(int w=0; w<8; w++){
-        pieces.push_back(Piece(P, false));
-    }
-    // black Knights
-    for(int w=0; w<2; w++){
-        pieces.push_back(Piece(N, false));
-    }
-    // black Bishops
-    for(int w=0; w<2; w++){
-        pieces.push_back(Piece(B, false));
-    }
-    // black Rooks
-    for(int w=0; w<2; w++){
-        pieces.push_back(Piece(R, false));
-    }
-    pieces.push_back(Piece(Q, false));
-    pieces.push_back(Piece(K, false));
-
-    for(unsigned long int i=0; i<pieces.size(); i++){
-        pieces[i].setTexture();
-    }
-
-    pieceOffset = pieces[0].m_sprite.getOrigin();
-    
-    // load squares
-    initBoard(width, height);
-
     // set starting FEN and parse
     FEN = START_POSITION;
     parseFen(FEN);
 }
 
-// create and set rectangles
-void Board::initBoard(int width, int height){
-    float rectX = (width / 8.0f);
-    float rectY = (height / 8.0f);
-
-    // setting square sizes equal to width & height / 8
-    for(int i=0; i<64; i++){
-        sf::RectangleShape rect;
-        rect.setSize(sf::Vector2f(rectX, rectY));
-        rectangles.push_back(rect);
-    }
-
-    for(int rank=0; rank<8; rank++){
-        for(int file=0; file<8; file++){
-            color c = (file + rank) % 2 == 0 ? light : dark;
-            rectangles[file + (rank*8)].setFillColor(sf::Color(c.r, c.g, c.b));
-            rectangles[file + (rank*8)].setPosition(sf::Vector2f(rectX * file, rectY * rank));
-        }
-    }
-}
-
-// flip board entites depending on side to move
-void Board::flipBoard(){
-    float rectSizeX = rectangles[0].getSize().x;
-    float rectSizeY = rectangles[0].getSize().y;
-
-    for(auto &i : rectangles){
-        sf::Vector2f pos = i.getPosition();
-        i.setPosition(sf::Vector2f((window_w - pos.x) - rectSizeX, (window_h - pos.y) - rectSizeY));
-    }
-
-    for(auto &i : pieces){
-        sf::Vector2f pos = i.m_sprite.getPosition();
-        i.m_sprite.setPosition(sf::Vector2f((window_w - pos.x), (window_h - pos.y)));
-    }
-}
-
 int Board::getBit(BITBOARD board, int index){
     string str = board.to_string();
     return int(str[64 - index - 1] - '0');
-}
-
-void Board::findPieces(){
-    // loop through all pieces to reset their m_updated bool
-    for(int i=0; i<32; i++){
-        pieces[i].m_updated = false;
-    }
-
-    // loop through ranks and files
-    for(int rank=0; rank<8; rank++){
-        for(int file=0; file<8; file++){
-            int index = (rank*8) + file;
-            // loop through all white bitboards
-            for(int _board=P; _board<p; _board++){
-                // check bit at index for occupancy of piece
-                if(getBit(bitboards[_board], index) == 1){
-                    placePiece(_board, sf::Vector2f(file, rank), white);
-                }
-            }
-            // loop over all black bitboards
-            for(int _board=p; _board<=k; _board++){
-                int b = _board - 6;
-                // check bit at index for occupancy of piece
-                if(getBit(bitboards[_board], index) == 1){
-                    placePiece(b, sf::Vector2f(file, rank), black);
-                }
-            }
-        }
-    }
-
-    // if a piece isn't updated, set piece away from board so it doesn't get 'picked up' later on
-    for(int piece=P; piece<=k; piece++){
-        if(!pieces[piece].m_updated){
-            pieces[piece].m_sprite.setPosition(sf::Vector2f(-100,100));
-        }
-    }
-
-    // if(side_to_move) flipBoard();
-}
-
-void Board::placePiece(int type, sf::Vector2f square, int color){
-    sf::Vector2f pos = sf::Vector2f((square.x * int(rectangles[0].getSize().x)) + (int(rectangles[0].getSize().x)/2), 
-                                    (square.y * int(rectangles[0].getSize().y)) + (int(rectangles[0].getSize().y)/2));
-
-    // check for color of piece to edit
-    if(color == white){
-        // loop through pieces to find which to edit
-        for(int i=0; i<16; i++){
-            // check type
-            if(pieces[i].m_type == type){
-                //check updated
-                if(!pieces[i].m_updated){
-                    pieces[i].m_updated = true;
-                    pieces[i].m_sprite.setPosition(pos);
-                    pieces[i].m_squarePosition = (square.x * 8) + square.y;
-                    break;
-                }
-            }
-        }
-    }else{
-        // loop through pieces to find which to edit
-        for(int i=16; i<32; i++){
-            // check type
-            if(pieces[i].m_type == type){
-                //check updated
-                if(!pieces[i].m_updated){
-                    pieces[i].m_updated = true;
-                    pieces[i].m_sprite.setPosition(pos);
-                    pieces[i].m_squarePosition = (square.x * 8) + square.y;
-                    break;
-                }
-            }
-        }
-    }
 }
 
 // Temp debugging bitboard printer
@@ -306,8 +137,6 @@ void Board::parseFen(string fen){
         occupancies[black] |= bitboards[piece + p];
     }
     occupancies[both] |= (occupancies[white] | occupancies[black]);
-
-    findPieces();
 }
 
 // updating FEN string using the boards
@@ -361,6 +190,12 @@ string Board::updateFEN(){
                 empty_squares++;
             }
         }
+        if(rank==7){
+            if(empty_squares){
+                char num = empty_squares + '0';
+                output += num;
+            }
+        }
     }
 
     // add side to move
@@ -391,28 +226,4 @@ string Board::updateFEN(){
 
     FEN = output;
     return output;
-}
-
-/**********************************\
- ==================================
-             Drawing
- ==================================
-\**********************************/
-void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const{
-    int selected = 0;
-    int iter = 0;
-    
-    for(auto &i : rectangles) target.draw(i);
-
-    for(auto &i : pieces){
-        if(!i.m_selected){
-            if(i.m_updated){
-                target.draw(i);
-            }
-        }else selected = iter;
-        iter++;
-    }
-    
-    // draw current dragging piece
-    target.draw(pieces[selected]);
 }

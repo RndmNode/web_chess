@@ -171,131 +171,51 @@ const int mirror_score[128] =
 	a8, b8, c8, d8, e8, f8, g8, h8
 };
 
-
-/*                          BINARY FORMATTING of MOVE ITEMS
-
-    BINARY REPRESENTATION               DESCRIPTION             HEXIDECIMAL CONSTANTS
-    =============================       =================       =====================
-    0000 0000 0000 0000 0011 1111       source square           0x3f
-    0000 0000 0000 1111 1100 0000       target square           0xfc0
-    0000 0000 1111 0000 0000 0000       piece                   0xf000
-    0000 1111 0000 0000 0000 0000       promoted piece          0xf0000
-    0001 0000 0000 0000 0000 0000       capture flag            0x100000
-    0010 0000 0000 0000 0000 0000       double push flag        0x200000
-    0100 0000 0000 0000 0000 0000       enpassant capture       0x400000
-    1000 0000 0000 0000 0000 0000       castling flag           0x800000
-
-*/
-
-ChessGame::ChessGame(sf::RenderTarget& target) : m_target(target){
-    board = Board(target.getSize().x,target.getSize().y);
+ChessGame::ChessGame(){
+    board = Board();
 }
 
-// // generate 32-bit pseudo random legal numbers
-// unsigned int ChessGame::get_random_U32_number(){
-//     // xor shift algorithm
-//     random_state ^= random_state << 13;
-//     random_state ^= random_state >> 17;
-//     random_state ^= random_state << 5;
+void ChessGame::printFullCharBoard(){
+    char fullBoard[64];
+    bool occupied;
 
-//     return random_state;
-// }
+    // loop through the squares
+    for(int rank=0; rank<8; rank++){
+        for(int file=0; file<8; file++){
+            int square = (rank*8)+file;
+            occupied = false;
 
-// // generate 64-bit pseudo random legal numbers
-// BITBOARD ChessGame::get_random_U64_number(){
-//     // define 4 random numbers
-//     BITBOARD n1, n2, n3, n4;
+            // loop through the boards to check bits
+            for(int i=P; i<=k; i++){
+                int bit = board.getBit(board.bitboards[i], square);
+                if(bit == 1){
+                    occupied = true;
+                    fullBoard[square] = piece_to_char.at(i);
+                    break;
+                }
+            }
+            if(!occupied) fullBoard[square] = '.';
+        }   
+    }
 
-//     // init random numbers while isolating the "top" 16 bits
-//     n1 = (BITBOARD)(get_random_U32_number()) & (BITBOARD)(0xFFFF);
-//     n2 = (BITBOARD)(get_random_U32_number()) & (BITBOARD)(0xFFFF);
-//     n3 = (BITBOARD)(get_random_U32_number()) & (BITBOARD)(0xFFFF);
-//     n4 = (BITBOARD)(get_random_U32_number()) & (BITBOARD)(0xFFFF);
+    cout << "\n  Full Board:\n\n ";
+    for(int rank=0; rank<8; rank++){
+        cout << " " << 8 - rank << "   ";
+        for(int file=0; file<8; file++){
+            cout << fullBoard[(rank*8)+file] << " ";
+        }
+        cout << "\n ";
+    }
+    cout << "\n      a b c d e f g h\n\n";
 
-//     // return random number
-//     return n1 | (n2 << 16) | (n3 << 32) | (n4 << 48);
-// }
-
-// // generating magic number candidates
-// BITBOARD ChessGame::get_random_magic_number(){
-//     return get_random_U64_number() & get_random_U64_number() & get_random_U64_number();
-// }
-
-// // finds appropriate magic number 
-// BITBOARD ChessGame::find_magic_number(int square, int relevantBits, int bishopFlag){
-//     // init occupancies
-//     BITBOARD occupancies[4096];
-
-//     // init attack tables
-//     BITBOARD attacks[4096];
-    
-//     // init used attacks
-//     BITBOARD used_attacks[4096];
-
-//     // init attack mask for current piece
-//     BITBOARD attack_mask = bishopFlag ? getBishopOccupancy(square) : getRookOccupancy(square);
-
-//     // init occupancy indicies
-//     int occupancy_indicies = 1 << relevantBits;
-
-//     // loop over occupancy indicies
-//     for(int index=0; index<occupancy_indicies; index++){
-//         // init occupancies 
-//         occupancies[index] = setOccupancies(index, relevantBits, attack_mask);
-//         // init attacks
-//         attacks[index] = bishopFlag ? generateBishopAttacks_onTheFly(square, occupancies[index]) : 
-//                                       generateRookAttacks_onTheFly(square, occupancies[index]);
-//     }
-
-//     // test magic numbers loop
-//     for(int random_count=0; random_count<10000000; random_count++){
-//         // generate magic number candidate
-//         BITBOARD magic_number = get_random_magic_number(); 
-//         // skip inappropriate magic numbers
-//         if(countBits((attack_mask.to_ullong() * magic_number.to_ullong()) & 0xFF00000000000000) < 6) continue;
-
-//         // init used attacks
-//         memset(used_attacks, 0ULL, sizeof(used_attacks));
-
-//         // init index & fail flag
-//         int index, fail;
-        
-//         // test magic index
-//         for(index=0, fail=0; !fail && index<occupancy_indicies; index++){
-//             // init magic index
-//             int magic_index = (int)((occupancies[index].to_ullong() * magic_number.to_ullong()) >> (64 - relevantBits));
-
-//             // if magic index works
-//             if(used_attacks[magic_index] == 0ULL){
-//                 // init used attacks
-//                 used_attacks[magic_index] = attacks[index];
-//             }else if(used_attacks[magic_index] != attacks[index]){
-//                 fail = 1;
-//             }
-//         }
-
-//         // if magic number works, return it
-//         if(!fail) return magic_number;
-//     }
-//     // else
-//     cout << "Magic number failed!" << endl;
-//     return 0ULL;
-// }
-
-// // initialize magic numbers
-// void ChessGame::init_magic(){
-//     // loop over board squares
-//     for(int square=0; square<64; square++){
-//         // init rook magic numbers
-//         rook_magic_numbers[square] = find_magic_number(square, rook_relevant_bits[square], rook);
-//     }
-
-//     cout << "\n\n";
-//     for(int square=0; square<64; square++){
-//         // init bishop magic numbers
-//         bishop_magic_numbers[square] = find_magic_number(square, bishop_relevant_bits[square], bishop);
-//     }
-// }
+    cout << "  Side: " << ((board.side_to_move) ? "black\n" : "white\n");
+    cout << "  Enpassant: " << square_to_coordinates[board.enpassant_square] << endl;
+    cout << "  Castling: " << ((board.castling_rights & wk) ? 'K' : '-' )<<  
+                              ((board.castling_rights & wq) ? 'Q' : '-' )<<
+                              ((board.castling_rights & bk) ? 'k' : '-' )<<
+                              ((board.castling_rights & bq) ? 'q' : '-' )<< '\n';
+    cout << "  FEN: " << board.FEN << "\n\n";
+}
 
 // Generates attacking bitboard for pawns depending on side and square
 BITBOARD ChessGame::generatePawnAttacks(int side, int square){
@@ -432,7 +352,6 @@ BITBOARD ChessGame::get_Rook_Attacks(int square, BITBOARD occupancy){
 
     return rook_attacks[square][occupancy.to_ullong()];
 }
-
 
 // Gets occupancy squares for bishops (in video series, this is equal to mask_bishop_attacks)
 BITBOARD ChessGame::getBishopOccupancy(int square){
@@ -596,6 +515,21 @@ void ChessGame::init_all(){
           Move Generation
  ==================================
 \**********************************/
+
+/*                          BINARY FORMATTING of MOVE ITEMS
+
+    BINARY REPRESENTATION               DESCRIPTION             HEXIDECIMAL CONSTANTS
+    =============================       =================       =====================
+    0000 0000 0000 0000 0011 1111       source square           0x3f
+    0000 0000 0000 1111 1100 0000       target square           0xfc0
+    0000 0000 1111 0000 0000 0000       piece                   0xf000
+    0000 1111 0000 0000 0000 0000       promoted piece          0xf0000
+    0001 0000 0000 0000 0000 0000       capture flag            0x100000
+    0010 0000 0000 0000 0000 0000       double push flag        0x200000
+    0100 0000 0000 0000 0000 0000       enpassant capture       0x400000
+    1000 0000 0000 0000 0000 0000       castling flag           0x800000
+
+*/
 
 bool ChessGame::is_square_attacked(int square, int side){
     // attacked by white pawns
@@ -1126,7 +1060,6 @@ int ChessGame::make_move(int move, int move_flag){
             return 0;
         }else {
             move_history.push(board.updateFEN());
-            board.findPieces();
             return 1;
         }
     }else{
@@ -1443,56 +1376,10 @@ int ChessGame::evaluate(){
  ==================================
 \**********************************/
 
-int ChessGame::quiescence(int alpha, int beta){
-    // evaluate position
-    int evaluation = evaluate();
-
-    // fail-hard beta cutoff
-    if(evaluation >= beta){
-        return beta; // move fails high
-    }
-
-    // found better move
-    if(evaluation > alpha){
-        alpha = evaluation;
-    }
-
-    // create move list instance and generate moves
-    moves move_list[1];
-    generateMoves(move_list);
-
-    for(int count=0; count<move_list->count; count++){
-        m_ply++;
-        if(!make_move(move_list->moves[count], only_captures)){
-            m_ply--;
-            continue;
-        }
-        
-        // score current move
-        int score = -quiescence(-beta, -alpha);
-
-        m_ply--;
-        undo_move();
-        
-        // fail-hard beta cutoff
-        if(score >= beta){
-           return beta; // move fails high
-        }
-
-        // found better move
-        if(score > alpha){
-            alpha = score;
-        }
-    }
-    // node fails low
-    return alpha;
-}
-
 // alpha beta search (w/o pruning)
 int ChessGame::negamax(int alpha, int beta, int depth){
     if(depth == 0){
-        // return evaluate();
-        return quiescence(alpha, beta);
+        return evaluate();
     }
     // increment nodes searched
     m_nodes++;
@@ -1578,13 +1465,4 @@ void ChessGame::search_position(int depth){
         print_move(m_best_move);
         printf("\n");
     }
-}
-
-/**********************************\
- ==================================
-             Drawing
- ==================================
-\**********************************/
-void ChessGame::draw(sf::RenderTarget& target, sf::RenderStates states) const{
-    target.draw(board);
 }

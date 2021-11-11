@@ -6,7 +6,7 @@ SRC		:= src
 INCLUDE	:= src/Headers
 LIB		:= lib
 
-LIBRARIES	:= -lsfml-graphics -lsfml-window -lsfml-system
+LIBRARIES	:= 
 EXECUTABLE	:= main
 
 
