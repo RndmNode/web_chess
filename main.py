@@ -13,6 +13,10 @@ def makeMove():
     move = request.form.get('move')
     return {'move' : move}
 
+# main 
+def main():
+    app.run(port=5000, debug=True, threaded=True)
+
 # run
 if __name__ == '__main__':
-    app.run(port=5000, debug=True, threaded=True)
+    main()
