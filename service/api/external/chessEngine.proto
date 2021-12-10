@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package chessEngine;
+
+service ChessEngine{
+    rpc getFEN(fenRequest) returns (fenResponse);
+}
+
+message fenRequest{
+    string fen = 1;
+}
+
+message fenResponse{
+    string fen = 1;
+}

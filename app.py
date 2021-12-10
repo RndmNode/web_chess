@@ -15,7 +15,7 @@ def makeMove():
 
 # main 
 def main():
-    app.run(port=5000, debug=True, threaded=True)
+    app.run(port=5050, debug=True, threaded=True)
 
 # run
 if __name__ == '__main__':
