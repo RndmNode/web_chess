@@ -116,7 +116,7 @@ class ChessGame{
         void search_position(int depth);
         int negamax(int alpha, int beta, int depth);
 
-        ChessGame();
+        ChessGame(string fen) : board(fen) {};
         ~ChessGame(){};
 };
 

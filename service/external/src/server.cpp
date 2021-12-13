@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 
-#include <grpcpp/grpcpp.h>
+#include <grpc++/grpc++.h>
 #include "chessEngine.grpc.pb.h"
+#include "engine.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -14,13 +15,13 @@ using chessEngine::fenRequest;
 using chessEngine::fenResponse;
 
 class ChessEngineImplementation final : public ChessEngine::Service {
-    Status getFEN(
+    Status Get_AI_Move(
         ServerContext* context, 
         const fenRequest* request, 
         fenResponse* response
     ) override {
         std::string position = request->fen();
-        std::string reply = "Hello from the server! You gave me this position: " + position;
+        std::string reply = getAI_move(position);
         response->set_fen(reply);
 
         return Status::OK;

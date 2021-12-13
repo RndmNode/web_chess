@@ -1,4 +1,4 @@
-#include "Headers/Board.h"
+#include "Board.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ const char *square_to_coordinates[] = {
                    "a2","b2","c2","d2","e2","f2","g2","h2",
                    "a1","b1","c1","d1","e1","f1","g1","h1", "-"};
 
-Board::Board(){
+Board::Board(string fen){
     // initializing boards and pieces
     BITBOARD temp;
     temp.all();
@@ -27,7 +27,7 @@ Board::Board(){
     }
 
     // set starting FEN and parse
-    FEN = START_POSITION;
+    FEN = fen;
     parseFen(FEN);
 }
 

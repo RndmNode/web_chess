@@ -1,4 +1,4 @@
-#include "Headers/ChessGame.h"
+#include "ChessGame.h"
 
 BITBOARD pawn_attacks[2][64];
 BITBOARD knight_attacks[64];
@@ -171,9 +171,9 @@ const int mirror_score[128] =
 	a8, b8, c8, d8, e8, f8, g8, h8
 };
 
-ChessGame::ChessGame(){
-    board = Board();
-}
+// ChessGame::ChessGame(string fen) : board(fen){
+//     board = Board(fen);
+// }
 
 void ChessGame::printFullCharBoard(){
     char fullBoard[64];
@@ -1142,7 +1142,7 @@ void ChessGame::handle_move(int source, int target, int piece){
             // queen side castling is available
         if(board.castling_rights & wq){
                 // make sure nothing is blocking
-            if(!board.getBit(board.occupancies[both], b1) && !board.getBit(board.occupancies[both], c1), !board.getBit(board.occupancies[both], d1)){
+            if(!board.getBit(board.occupancies[both], b1) && !board.getBit(board.occupancies[both], c1) && !board.getBit(board.occupancies[both], d1)){
                     // make sure path is not in check
                 if(!is_square_attacked(e1, black) && !is_square_attacked(d1, black)){
                     move = encode_move(e1, c1, piece, 0, 0, 0, 0, 1);
@@ -1207,7 +1207,7 @@ void ChessGame::handle_move(int source, int target, int piece){
             // queen side castling is available
         if(board.castling_rights & bq){
                 // make sure nothing is blocking
-            if(!board.getBit(board.occupancies[both], b8) && !board.getBit(board.occupancies[both], c8), !board.getBit(board.occupancies[both], d8)){
+            if(!board.getBit(board.occupancies[both], b8) && !board.getBit(board.occupancies[both], c8) && !board.getBit(board.occupancies[both], d8)){
                     // make sure path is not in check
                 if(!is_square_attacked(e8, white) && !is_square_attacked(d8, white)){
                     move = encode_move(e8, c8, piece, 0, 0, 0, 0, 1);
@@ -1457,12 +1457,4 @@ int ChessGame::negamax(int alpha, int beta, int depth){
 void ChessGame::search_position(int depth){
     // find best move given position
     int score = negamax(-50000, 50000, depth);
-
-    if(m_best_move){
-        printf("info score cp %d depth %d nodes %ld  |  ", score, depth, m_nodes);
-        // print results
-        printf("best move: ");
-        print_move(m_best_move);
-        printf("\n");
-    }
 }

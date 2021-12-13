@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import api.external.chessEngine_pb2 as chessEngine__pb2
+import service.external.src.chessEngine_pb2 as chessEngine__pb2
 
 
 class ChessEngineStub(object):
@@ -14,8 +14,8 @@ class ChessEngineStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.getFEN = channel.unary_unary(
-                '/chessEngine.ChessEngine/getFEN',
+        self.Get_AI_Move = channel.unary_unary(
+                '/chessEngine.ChessEngine/Get_AI_Move',
                 request_serializer=chessEngine__pb2.fenRequest.SerializeToString,
                 response_deserializer=chessEngine__pb2.fenResponse.FromString,
                 )
@@ -24,7 +24,7 @@ class ChessEngineStub(object):
 class ChessEngineServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def getFEN(self, request, context):
+    def Get_AI_Move(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -33,8 +33,8 @@ class ChessEngineServicer(object):
 
 def add_ChessEngineServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'getFEN': grpc.unary_unary_rpc_method_handler(
-                    servicer.getFEN,
+            'Get_AI_Move': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get_AI_Move,
                     request_deserializer=chessEngine__pb2.fenRequest.FromString,
                     response_serializer=chessEngine__pb2.fenResponse.SerializeToString,
             ),
@@ -49,7 +49,7 @@ class ChessEngine(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def getFEN(request,
+    def Get_AI_Move(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,7 +59,7 @@ class ChessEngine(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/chessEngine.ChessEngine/getFEN',
+        return grpc.experimental.unary_unary(request, target, '/chessEngine.ChessEngine/Get_AI_Move',
             chessEngine__pb2.fenRequest.SerializeToString,
             chessEngine__pb2.fenResponse.FromString,
             options, channel_credentials,

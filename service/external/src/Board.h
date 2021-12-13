@@ -59,9 +59,6 @@ extern const BITBOARD not_ab_file;
 
 class Board{
     public:
-        string boardNames[12] = {"whitePawn","whiteKnight","whiteBishop","whiteRook","whiteQueen","whiteKing",
-                                 "blackPawn","blackKnight","blackBishop","blackRook","blackQueen","blackKing"};
-
         int side_to_move = -1;
         int enpassant_square = no_sq;
         int castling_rights;
@@ -80,7 +77,7 @@ class Board{
         vector<BITBOARD> bitboards;      // vector to hold piece bitboards ordered by encoded piece enumeration
         vector<BITBOARD> occupancies;
         
-        Board();
+        Board(string fen);
         ~Board(){};
 };
 

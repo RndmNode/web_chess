@@ -68,16 +68,13 @@
                 promotion: 'q' // NOTE: always promote to a queen for example simplicity
             })
 
-            console.log("source: " + source)
-            console.log("target: " + target)
-            s_move = source + target
-
             // illegal move
             if (move === null) return 'snapback'
 
             // make HTTP POST request
-            $.post('/make_move', {'move': s_move} ,function(data){
-                console.log(data.move)
+            $.post('/make_move', {'fen' : game.fen()} ,function(data){
+                game.load(data.fen)
+                board.position(game.fen())
             });
 
             updateStatus()

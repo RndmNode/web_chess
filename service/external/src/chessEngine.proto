@@ -3,7 +3,7 @@ syntax = "proto3";
 package chessEngine;
 
 service ChessEngine{
-    rpc getFEN(fenRequest) returns (fenResponse);
+    rpc Get_AI_Move(fenRequest) returns (fenResponse);
 }
 
 message fenRequest{
@@ -12,4 +12,4 @@ message fenRequest{
 
 message fenResponse{
     string fen = 1;
-}
+} 

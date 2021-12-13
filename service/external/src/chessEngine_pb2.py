@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11\x63hessEngine.proto\x12\x0b\x63hessEngine\"\x19\n\nfenRequest\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t\"\x1a\n\x0b\x66\x65nResponse\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t2J\n\x0b\x43hessEngine\x12;\n\x06getFEN\x12\x17.chessEngine.fenRequest\x1a\x18.chessEngine.fenResponseb\x06proto3'
+  serialized_pb=b'\n\x11\x63hessEngine.proto\x12\x0b\x63hessEngine\"\x19\n\nfenRequest\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t\"\x1a\n\x0b\x66\x65nResponse\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t2O\n\x0b\x43hessEngine\x12@\n\x0bGet_AI_Move\x12\x17.chessEngine.fenRequest\x1a\x18.chessEngine.fenResponseb\x06proto3'
 )
 
 
@@ -116,11 +116,11 @@ _CHESSENGINE = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=89,
-  serialized_end=163,
+  serialized_end=168,
   methods=[
   _descriptor.MethodDescriptor(
-    name='getFEN',
-    full_name='chessEngine.ChessEngine.getFEN',
+    name='Get_AI_Move',
+    full_name='chessEngine.ChessEngine.Get_AI_Move',
     index=0,
     containing_service=None,
     input_type=_FENREQUEST,

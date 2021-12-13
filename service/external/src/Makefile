@@ -1,15 +1,21 @@
+SRC = ./src
+IDIR = ./include
+BIN = ./bin
+ODIR = ./obj
+EXECUTABLE = server
+
 LDFLAGS = -L/usr/local/lib `pkg-config --libs protobuf grpc++ re2 libcares`
 
-CXX = g++
+CXX = g++ -Ofast
 CPPFLAGS += `pkg-config --cflags protobuf grpc`
-CXXFLAGS += -std=c++17
+CXXFLAGS += -std=c++17 -ggdb
 
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
 
 all: server cleanup
 
-server: chessEngine.pb.o chessEngine.grpc.pb.o server.o
+$(EXECUTABLE): chessEngine.pb.o chessEngine.grpc.pb.o server.o Board.o ChessGame.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 %.grpc.pb.cc: %.proto
@@ -23,4 +29,4 @@ cleanup:
 	rm -f *.o
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h *_pb2.py *grpc.py client server
+	rm -f *.o *.pb.cc *.pb.h *_pb2.py *grpc.py server
