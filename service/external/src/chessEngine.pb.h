@@ -57,13 +57,13 @@ namespace chessEngine {
 class fenRequest;
 struct fenRequestDefaultTypeInternal;
 extern fenRequestDefaultTypeInternal _fenRequest_default_instance_;
-class fenResponse;
-struct fenResponseDefaultTypeInternal;
-extern fenResponseDefaultTypeInternal _fenResponse_default_instance_;
+class moveResponse;
+struct moveResponseDefaultTypeInternal;
+extern moveResponseDefaultTypeInternal _moveResponse_default_instance_;
 }  // namespace chessEngine
 PROTOBUF_NAMESPACE_OPEN
 template<> ::chessEngine::fenRequest* Arena::CreateMaybeMessage<::chessEngine::fenRequest>(Arena*);
-template<> ::chessEngine::fenResponse* Arena::CreateMaybeMessage<::chessEngine::fenResponse>(Arena*);
+template<> ::chessEngine::moveResponse* Arena::CreateMaybeMessage<::chessEngine::moveResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace chessEngine {
 
@@ -213,24 +213,24 @@ class fenRequest final :
 };
 // -------------------------------------------------------------------
 
-class fenResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:chessEngine.fenResponse) */ {
+class moveResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:chessEngine.moveResponse) */ {
  public:
-  inline fenResponse() : fenResponse(nullptr) {}
-  ~fenResponse() override;
-  explicit constexpr fenResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline moveResponse() : moveResponse(nullptr) {}
+  ~moveResponse() override;
+  explicit constexpr moveResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  fenResponse(const fenResponse& from);
-  fenResponse(fenResponse&& from) noexcept
-    : fenResponse() {
+  moveResponse(const moveResponse& from);
+  moveResponse(moveResponse&& from) noexcept
+    : moveResponse() {
     *this = ::std::move(from);
   }
 
-  inline fenResponse& operator=(const fenResponse& from) {
+  inline moveResponse& operator=(const moveResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline fenResponse& operator=(fenResponse&& from) noexcept {
+  inline moveResponse& operator=(moveResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -249,20 +249,20 @@ class fenResponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const fenResponse& default_instance() {
+  static const moveResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const fenResponse* internal_default_instance() {
-    return reinterpret_cast<const fenResponse*>(
-               &_fenResponse_default_instance_);
+  static inline const moveResponse* internal_default_instance() {
+    return reinterpret_cast<const moveResponse*>(
+               &_moveResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(fenResponse& a, fenResponse& b) {
+  friend void swap(moveResponse& a, moveResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(fenResponse* other) {
+  inline void Swap(moveResponse* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -270,7 +270,7 @@ class fenResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(fenResponse* other) {
+  void UnsafeArenaSwap(moveResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -278,17 +278,17 @@ class fenResponse final :
 
   // implements Message ----------------------------------------------
 
-  inline fenResponse* New() const final {
-    return new fenResponse();
+  inline moveResponse* New() const final {
+    return new moveResponse();
   }
 
-  fenResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<fenResponse>(arena);
+  moveResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<moveResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const fenResponse& from);
+  void CopyFrom(const moveResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const fenResponse& from);
+  void MergeFrom(const moveResponse& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
   public:
@@ -305,13 +305,13 @@ class fenResponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(fenResponse* other);
+  void InternalSwap(moveResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "chessEngine.fenResponse";
+    return "chessEngine.moveResponse";
   }
   protected:
-  explicit fenResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit moveResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -328,30 +328,30 @@ class fenResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFenFieldNumber = 1,
+    kMoveFieldNumber = 1,
   };
-  // string fen = 1;
-  void clear_fen();
-  const std::string& fen() const;
+  // string move = 1;
+  void clear_move();
+  const std::string& move() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_fen(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_fen();
-  PROTOBUF_MUST_USE_RESULT std::string* release_fen();
-  void set_allocated_fen(std::string* fen);
+  void set_move(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_move();
+  PROTOBUF_MUST_USE_RESULT std::string* release_move();
+  void set_allocated_move(std::string* move);
   private:
-  const std::string& _internal_fen() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_fen(const std::string& value);
-  std::string* _internal_mutable_fen();
+  const std::string& _internal_move() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_move(const std::string& value);
+  std::string* _internal_mutable_move();
   public:
 
-  // @@protoc_insertion_point(class_scope:chessEngine.fenResponse)
+  // @@protoc_insertion_point(class_scope:chessEngine.moveResponse)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fen_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr move_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_chessEngine_2eproto;
 };
@@ -414,52 +414,52 @@ inline void fenRequest::set_allocated_fen(std::string* fen) {
 
 // -------------------------------------------------------------------
 
-// fenResponse
+// moveResponse
 
-// string fen = 1;
-inline void fenResponse::clear_fen() {
-  fen_.ClearToEmpty();
+// string move = 1;
+inline void moveResponse::clear_move() {
+  move_.ClearToEmpty();
 }
-inline const std::string& fenResponse::fen() const {
-  // @@protoc_insertion_point(field_get:chessEngine.fenResponse.fen)
-  return _internal_fen();
+inline const std::string& moveResponse::move() const {
+  // @@protoc_insertion_point(field_get:chessEngine.moveResponse.move)
+  return _internal_move();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void fenResponse::set_fen(ArgT0&& arg0, ArgT... args) {
+void moveResponse::set_move(ArgT0&& arg0, ArgT... args) {
  
- fen_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chessEngine.fenResponse.fen)
+ move_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:chessEngine.moveResponse.move)
 }
-inline std::string* fenResponse::mutable_fen() {
-  std::string* _s = _internal_mutable_fen();
-  // @@protoc_insertion_point(field_mutable:chessEngine.fenResponse.fen)
+inline std::string* moveResponse::mutable_move() {
+  std::string* _s = _internal_mutable_move();
+  // @@protoc_insertion_point(field_mutable:chessEngine.moveResponse.move)
   return _s;
 }
-inline const std::string& fenResponse::_internal_fen() const {
-  return fen_.Get();
+inline const std::string& moveResponse::_internal_move() const {
+  return move_.Get();
 }
-inline void fenResponse::_internal_set_fen(const std::string& value) {
+inline void moveResponse::_internal_set_move(const std::string& value) {
   
-  fen_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+  move_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* fenResponse::_internal_mutable_fen() {
+inline std::string* moveResponse::_internal_mutable_move() {
   
-  return fen_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+  return move_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* fenResponse::release_fen() {
-  // @@protoc_insertion_point(field_release:chessEngine.fenResponse.fen)
-  return fen_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+inline std::string* moveResponse::release_move() {
+  // @@protoc_insertion_point(field_release:chessEngine.moveResponse.move)
+  return move_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
-inline void fenResponse::set_allocated_fen(std::string* fen) {
-  if (fen != nullptr) {
+inline void moveResponse::set_allocated_move(std::string* move) {
+  if (move != nullptr) {
     
   } else {
     
   }
-  fen_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), fen,
+  move_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), move,
       GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:chessEngine.fenResponse.fen)
+  // @@protoc_insertion_point(field_set_allocated:chessEngine.moveResponse.move)
 }
 
 #ifdef __GNUC__

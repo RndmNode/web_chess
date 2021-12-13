@@ -12,17 +12,17 @@ using grpc::Status;
 
 using chessEngine::ChessEngine;
 using chessEngine::fenRequest;
-using chessEngine::fenResponse;
+using chessEngine::moveResponse;
 
 class ChessEngineImplementation final : public ChessEngine::Service {
     Status Get_AI_Move(
         ServerContext* context, 
         const fenRequest* request, 
-        fenResponse* response
+        moveResponse* response
     ) override {
         std::string position = request->fen();
         std::string reply = getAI_move(position);
-        response->set_fen(reply);
+        response->set_move(reply);
 
         return Status::OK;
     } 
@@ -45,6 +45,5 @@ void Run(){
 
 int main(int argc, char** argv){
     Run();
-
     return 0;
 }

@@ -35,41 +35,41 @@ class ChessEngine final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::chessEngine::fenResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::fenResponse>> AsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::fenResponse>>(AsyncGet_AI_MoveRaw(context, request, cq));
+    virtual ::grpc::Status Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::chessEngine::moveResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::moveResponse>> AsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::moveResponse>>(AsyncGet_AI_MoveRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::fenResponse>> PrepareAsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::fenResponse>>(PrepareAsyncGet_AI_MoveRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::moveResponse>> PrepareAsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::moveResponse>>(PrepareAsyncGet_AI_MoveRaw(context, request, cq));
     }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::fenResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::fenResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::moveResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::moveResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::fenResponse>* AsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::fenResponse>* PrepareAsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::moveResponse>* AsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::chessEngine::moveResponse>* PrepareAsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::chessEngine::fenResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::fenResponse>> AsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::fenResponse>>(AsyncGet_AI_MoveRaw(context, request, cq));
+    ::grpc::Status Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::chessEngine::moveResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::moveResponse>> AsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::moveResponse>>(AsyncGet_AI_MoveRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::fenResponse>> PrepareAsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::fenResponse>>(PrepareAsyncGet_AI_MoveRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::moveResponse>> PrepareAsyncGet_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::chessEngine::moveResponse>>(PrepareAsyncGet_AI_MoveRaw(context, request, cq));
     }
     class async final :
       public StubInterface::async_interface {
      public:
-      void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::fenResponse* response, std::function<void(::grpc::Status)>) override;
-      void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::fenResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::moveResponse* response, std::function<void(::grpc::Status)>) override;
+      void Get_AI_Move(::grpc::ClientContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::moveResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -81,8 +81,8 @@ class ChessEngine final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::chessEngine::fenResponse>* AsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::chessEngine::fenResponse>* PrepareAsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::chessEngine::moveResponse>* AsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::chessEngine::moveResponse>* PrepareAsyncGet_AI_MoveRaw(::grpc::ClientContext* context, const ::chessEngine::fenRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Get_AI_Move_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -91,7 +91,7 @@ class ChessEngine final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status Get_AI_Move(::grpc::ServerContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::fenResponse* response);
+    virtual ::grpc::Status Get_AI_Move(::grpc::ServerContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::moveResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Get_AI_Move : public BaseClass {
@@ -105,11 +105,11 @@ class ChessEngine final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::fenResponse* /*response*/) override {
+    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::moveResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGet_AI_Move(::grpc::ServerContext* context, ::chessEngine::fenRequest* request, ::grpc::ServerAsyncResponseWriter< ::chessEngine::fenResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGet_AI_Move(::grpc::ServerContext* context, ::chessEngine::fenRequest* request, ::grpc::ServerAsyncResponseWriter< ::chessEngine::moveResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -121,25 +121,25 @@ class ChessEngine final {
    public:
     WithCallbackMethod_Get_AI_Move() {
       ::grpc::Service::MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::chessEngine::fenRequest, ::chessEngine::fenResponse>(
+          new ::grpc::internal::CallbackUnaryHandler< ::chessEngine::fenRequest, ::chessEngine::moveResponse>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::fenResponse* response) { return this->Get_AI_Move(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::chessEngine::fenRequest* request, ::chessEngine::moveResponse* response) { return this->Get_AI_Move(context, request, response); }));}
     void SetMessageAllocatorFor_Get_AI_Move(
-        ::grpc::MessageAllocator< ::chessEngine::fenRequest, ::chessEngine::fenResponse>* allocator) {
+        ::grpc::MessageAllocator< ::chessEngine::fenRequest, ::chessEngine::moveResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::chessEngine::fenRequest, ::chessEngine::fenResponse>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::chessEngine::fenRequest, ::chessEngine::moveResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_Get_AI_Move() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::fenResponse* /*response*/) override {
+    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::moveResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* Get_AI_Move(
-      ::grpc::CallbackServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::fenResponse* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::moveResponse* /*response*/)  { return nullptr; }
   };
   typedef WithCallbackMethod_Get_AI_Move<Service > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
@@ -155,7 +155,7 @@ class ChessEngine final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::fenResponse* /*response*/) override {
+    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::moveResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -172,7 +172,7 @@ class ChessEngine final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::fenResponse* /*response*/) override {
+    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::moveResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -195,7 +195,7 @@ class ChessEngine final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::fenResponse* /*response*/) override {
+    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::moveResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -210,10 +210,10 @@ class ChessEngine final {
     WithStreamedUnaryMethod_Get_AI_Move() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::chessEngine::fenRequest, ::chessEngine::fenResponse>(
+          ::chessEngine::fenRequest, ::chessEngine::moveResponse>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::chessEngine::fenRequest, ::chessEngine::fenResponse>* streamer) {
+                     ::chessEngine::fenRequest, ::chessEngine::moveResponse>* streamer) {
                        return this->StreamedGet_AI_Move(context,
                          streamer);
                   }));
@@ -222,12 +222,12 @@ class ChessEngine final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::fenResponse* /*response*/) override {
+    ::grpc::Status Get_AI_Move(::grpc::ServerContext* /*context*/, const ::chessEngine::fenRequest* /*request*/, ::chessEngine::moveResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedGet_AI_Move(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::chessEngine::fenRequest,::chessEngine::fenResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedGet_AI_Move(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::chessEngine::fenRequest,::chessEngine::moveResponse>* server_unary_streamer) = 0;
   };
   typedef WithStreamedUnaryMethod_Get_AI_Move<Service > StreamedUnaryService;
   typedef Service SplitStreamedService;

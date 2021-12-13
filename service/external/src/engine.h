@@ -9,7 +9,8 @@ string getAI_move(string position){
     chess.search_position(4);
     chess.make_move(chess.m_best_move, all_moves);
     std::cout << "game post move position: " << chess.board.FEN << endl;
+    std::cout << "engine best move: " << chess.get_move(chess.m_best_move) << endl;
     std::cout << "\n";
     
-    return chess.board.FEN;
+    return chess.get_move(chess.m_best_move);
 }

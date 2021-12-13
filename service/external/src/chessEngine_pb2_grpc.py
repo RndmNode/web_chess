@@ -17,7 +17,7 @@ class ChessEngineStub(object):
         self.Get_AI_Move = channel.unary_unary(
                 '/chessEngine.ChessEngine/Get_AI_Move',
                 request_serializer=chessEngine__pb2.fenRequest.SerializeToString,
-                response_deserializer=chessEngine__pb2.fenResponse.FromString,
+                response_deserializer=chessEngine__pb2.moveResponse.FromString,
                 )
 
 
@@ -36,7 +36,7 @@ def add_ChessEngineServicer_to_server(servicer, server):
             'Get_AI_Move': grpc.unary_unary_rpc_method_handler(
                     servicer.Get_AI_Move,
                     request_deserializer=chessEngine__pb2.fenRequest.FromString,
-                    response_serializer=chessEngine__pb2.fenResponse.SerializeToString,
+                    response_serializer=chessEngine__pb2.moveResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -61,6 +61,6 @@ class ChessEngine(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/chessEngine.ChessEngine/Get_AI_Move',
             chessEngine__pb2.fenRequest.SerializeToString,
-            chessEngine__pb2.fenResponse.FromString,
+            chessEngine__pb2.moveResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

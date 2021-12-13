@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11\x63hessEngine.proto\x12\x0b\x63hessEngine\"\x19\n\nfenRequest\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t\"\x1a\n\x0b\x66\x65nResponse\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t2O\n\x0b\x43hessEngine\x12@\n\x0bGet_AI_Move\x12\x17.chessEngine.fenRequest\x1a\x18.chessEngine.fenResponseb\x06proto3'
+  serialized_pb=b'\n\x11\x63hessEngine.proto\x12\x0b\x63hessEngine\"\x19\n\nfenRequest\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t\"\x1c\n\x0cmoveResponse\x12\x0c\n\x04move\x18\x01 \x01(\t2P\n\x0b\x43hessEngine\x12\x41\n\x0bGet_AI_Move\x12\x17.chessEngine.fenRequest\x1a\x19.chessEngine.moveResponseb\x06proto3'
 )
 
 
@@ -57,16 +57,16 @@ _FENREQUEST = _descriptor.Descriptor(
 )
 
 
-_FENRESPONSE = _descriptor.Descriptor(
-  name='fenResponse',
-  full_name='chessEngine.fenResponse',
+_MOVERESPONSE = _descriptor.Descriptor(
+  name='moveResponse',
+  full_name='chessEngine.moveResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='fen', full_name='chessEngine.fenResponse.fen', index=0,
+      name='move', full_name='chessEngine.moveResponse.move', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -85,11 +85,11 @@ _FENRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=61,
-  serialized_end=87,
+  serialized_end=89,
 )
 
 DESCRIPTOR.message_types_by_name['fenRequest'] = _FENREQUEST
-DESCRIPTOR.message_types_by_name['fenResponse'] = _FENRESPONSE
+DESCRIPTOR.message_types_by_name['moveResponse'] = _MOVERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 fenRequest = _reflection.GeneratedProtocolMessageType('fenRequest', (_message.Message,), {
@@ -99,12 +99,12 @@ fenRequest = _reflection.GeneratedProtocolMessageType('fenRequest', (_message.Me
   })
 _sym_db.RegisterMessage(fenRequest)
 
-fenResponse = _reflection.GeneratedProtocolMessageType('fenResponse', (_message.Message,), {
-  'DESCRIPTOR' : _FENRESPONSE,
+moveResponse = _reflection.GeneratedProtocolMessageType('moveResponse', (_message.Message,), {
+  'DESCRIPTOR' : _MOVERESPONSE,
   '__module__' : 'chessEngine_pb2'
-  # @@protoc_insertion_point(class_scope:chessEngine.fenResponse)
+  # @@protoc_insertion_point(class_scope:chessEngine.moveResponse)
   })
-_sym_db.RegisterMessage(fenResponse)
+_sym_db.RegisterMessage(moveResponse)
 
 
 
@@ -115,8 +115,8 @@ _CHESSENGINE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=89,
-  serialized_end=168,
+  serialized_start=91,
+  serialized_end=171,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get_AI_Move',
@@ -124,7 +124,7 @@ _CHESSENGINE = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_FENREQUEST,
-    output_type=_FENRESPONSE,
+    output_type=_MOVERESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

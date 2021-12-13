@@ -171,10 +171,6 @@ const int mirror_score[128] =
 	a8, b8, c8, d8, e8, f8, g8, h8
 };
 
-// ChessGame::ChessGame(string fen) : board(fen){
-//     board = Board(fen);
-// }
-
 void ChessGame::printFullCharBoard(){
     char fullBoard[64];
     bool occupied;
@@ -884,13 +880,16 @@ void ChessGame::add_move(moves *move_list, int move){
 }
 
 // short version of printing a move
-void ChessGame::print_move(int move){
-    cout << square_to_coordinates[get_move_source(move)] << 
-            square_to_coordinates[get_move_target(move)];
+string ChessGame::get_move(int move){
+    string output;
+    output += square_to_coordinates[get_move_source(move)];
+    output += square_to_coordinates[get_move_target(move)];
 
     if(get_move_promoted(move)){
-        cout << promoted_piece.at(get_move_promoted(move)); 
+        output += promoted_piece.at(get_move_promoted(move)); 
     }
+
+    return output;
 }
 
 void ChessGame::print_move_details(int move){

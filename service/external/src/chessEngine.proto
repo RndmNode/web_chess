@@ -3,13 +3,13 @@ syntax = "proto3";
 package chessEngine;
 
 service ChessEngine{
-    rpc Get_AI_Move(fenRequest) returns (fenResponse);
+    rpc Get_AI_Move(fenRequest) returns (moveResponse);
 }
 
 message fenRequest{
     string fen = 1;
 }
 
-message fenResponse{
-    string fen = 1;
+message moveResponse{
+    string move = 1;
 } 

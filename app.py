@@ -13,8 +13,8 @@ def home():
 def make_move():
     FEN = request.form.get('fen')
     AI_move = getAI_move(FEN)
-    print(AI_move.fen)
-    return {'fen' : AI_move.fen}
+    print(AI_move.move)
+    return {'move' : AI_move.move}
 
 # main 
 def main():
