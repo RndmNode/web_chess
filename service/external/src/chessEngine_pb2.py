@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11\x63hessEngine.proto\x12\x0b\x63hessEngine\"\x19\n\nfenRequest\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t\"\x1c\n\x0cmoveResponse\x12\x0c\n\x04move\x18\x01 \x01(\t2P\n\x0b\x43hessEngine\x12\x41\n\x0bGet_AI_Move\x12\x17.chessEngine.fenRequest\x1a\x19.chessEngine.moveResponseb\x06proto3'
+  serialized_pb=b'\n\x11\x63hessEngine.proto\x12\x0b\x63hessEngine\"(\n\nfenRequest\x12\x0b\n\x03\x66\x65n\x18\x01 \x01(\t\x12\r\n\x05\x64\x65pth\x18\x02 \x01(\x05\"\x1c\n\x0cmoveResponse\x12\x0c\n\x04move\x18\x01 \x01(\t2P\n\x0b\x43hessEngine\x12\x41\n\x0bGet_AI_Move\x12\x17.chessEngine.fenRequest\x1a\x19.chessEngine.moveResponseb\x06proto3'
 )
 
 
@@ -40,6 +40,13 @@ _FENREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='depth', full_name='chessEngine.fenRequest.depth', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -53,7 +60,7 @@ _FENREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=34,
-  serialized_end=59,
+  serialized_end=74,
 )
 
 
@@ -84,8 +91,8 @@ _MOVERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=61,
-  serialized_end=89,
+  serialized_start=76,
+  serialized_end=104,
 )
 
 DESCRIPTOR.message_types_by_name['fenRequest'] = _FENREQUEST
@@ -115,8 +122,8 @@ _CHESSENGINE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=91,
-  serialized_end=171,
+  serialized_start=106,
+  serialized_end=186,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get_AI_Move',

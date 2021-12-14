@@ -8,6 +8,7 @@ service ChessEngine{
 
 message fenRequest{
     string fen = 1;
+    int32 depth = 2;
 }
 
 message moveResponse{

@@ -12,8 +12,11 @@ def home():
 @app.route('/make_move', methods = ['POST'])
 def make_move():
     FEN = request.form.get('fen')
-    AI_move = getAI_move(FEN)
-    print(AI_move.move)
+    depth = int(request.form.get('fixed_depth'))
+    AI_move = getAI_move(FEN, depth)
+    while AI_move == 'a8a8':
+        AI_move = getAI_move(FEN)
+        continue
     return {'move' : AI_move.move}
 
 # main 

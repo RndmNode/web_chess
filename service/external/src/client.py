@@ -18,15 +18,14 @@ class ChessEngineClient(grpy.ChessEngineServicer):
         # bind the client and server
         self.stub = grpy.ChessEngineStub(self.channel)
     
-    def Get_AI_Move(self, position):
-        request = pb2.fenRequest(fen=position)
+    def Get_AI_Move(self, position, depth):
+        request = pb2.fenRequest(fen=position, depth=depth)
         return self.stub.Get_AI_Move(request)
 
-def getAI_move(position):
+def getAI_move(position, depth):
     client = ChessEngineClient()
-    return client.Get_AI_Move(position)
+    return client.Get_AI_Move(position, depth)
 
 if __name__ == '__main__':
     response = getAI_move("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
-    print(type(response))
     print(response)

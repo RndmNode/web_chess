@@ -185,6 +185,7 @@ class fenRequest final :
 
   enum : int {
     kFenFieldNumber = 1,
+    kDepthFieldNumber = 2,
   };
   // string fen = 1;
   void clear_fen();
@@ -200,6 +201,15 @@ class fenRequest final :
   std::string* _internal_mutable_fen();
   public:
 
+  // int32 depth = 2;
+  void clear_depth();
+  ::PROTOBUF_NAMESPACE_ID::int32 depth() const;
+  void set_depth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_depth() const;
+  void _internal_set_depth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:chessEngine.fenRequest)
  private:
   class _Internal;
@@ -208,6 +218,7 @@ class fenRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fen_;
+  ::PROTOBUF_NAMESPACE_ID::int32 depth_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_chessEngine_2eproto;
 };
@@ -410,6 +421,26 @@ inline void fenRequest::set_allocated_fen(std::string* fen) {
   fen_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), fen,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:chessEngine.fenRequest.fen)
+}
+
+// int32 depth = 2;
+inline void fenRequest::clear_depth() {
+  depth_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 fenRequest::_internal_depth() const {
+  return depth_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 fenRequest::depth() const {
+  // @@protoc_insertion_point(field_get:chessEngine.fenRequest.depth)
+  return _internal_depth();
+}
+inline void fenRequest::_internal_set_depth(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  depth_ = value;
+}
+inline void fenRequest::set_depth(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_depth(value);
+  // @@protoc_insertion_point(field_set:chessEngine.fenRequest.depth)
 }
 
 // -------------------------------------------------------------------

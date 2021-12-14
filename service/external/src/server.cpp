@@ -21,7 +21,8 @@ class ChessEngineImplementation final : public ChessEngine::Service {
         moveResponse* response
     ) override {
         std::string position = request->fen();
-        std::string reply = getAI_move(position);
+        int level = request->depth();
+        std::string reply = getAI_move(position, level);
         response->set_move(reply);
 
         return Status::OK;

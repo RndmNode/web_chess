@@ -28,6 +28,7 @@
         <script src="../static/js/chess.js"></script>
     </head>
     <body>
+        <br>
         <div class="container m-2 mx-auto">
             <div class="row">
                 <div class="col">
@@ -37,6 +38,25 @@
                                 <div class="col">
                                     <!-- chess board instance -->
                                     <div id="myBoard" class="mx-auto" style="width: 500px"></div>
+                                    <br>
+                                    <p class="text-center">Depth (AI strength)</p>
+                                    <select id="fixed_depth" class="form-control - mx-auto" style="width: 150px;">
+                                        <option value="1" class="text-center">Select Depth</option>
+                                        <option value="1" class="text-center">1 ply</option>
+                                        <option value="2" class="text-center">2 ply</option>
+                                        <option value="3" class="text-center">3 ply</option>
+                                        <option value="4" class="text-center">4 ply</option>
+                                        <option value="5" class="text-center">5 ply</option>
+                                    </select>
+                                    <br>
+                                    <!-- game controls -->
+                                    <div class="row mx-auto mb-2" style="width: 400px;">
+                                        <div class="btn-group">
+                                        <button id="new_game" class="btn btn-outline-secondary">New game</button>
+                                        <button id="take_back" class="btn btn-outline-secondary">Take back</button>
+                                        <button id="flip_board" class="btn btn-outline-secondary">Flip board</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col">
                                     <strong>Status:</strong>
@@ -55,6 +75,47 @@
 
         <!-- Javascript -->
         <script type="text/javascript">
+
+            function makeMove () {
+                // make HTTP POST request
+                $.post('/make_move', {'fen' : game.fen(), 'fixed_depth': $('#fixed_depth option:selected').val()} ,function(data){
+                    game.move(data.move, { sloppy: true })
+                    board.position(game.fen())
+                    updateStatus()
+                });
+            }
+
+            // handle new game button click
+            $('#new_game').on('click', function() {
+                // reset board state
+                game.reset();
+                
+                // set initial board position
+                board.position('start');
+
+                // update game status
+                updateStatus();
+            });
+
+            // handle take back button click
+            $('#take_back').on('click', function() {
+                // take move back
+                game.undo();
+                game.undo();
+                
+                // update board position
+                board.position(game.fen());
+                
+                // update game status
+                updateStatus();
+            });
+
+            // handle flip board button click
+            $('#flip_board').on('click', function() {
+                // flip board
+                board.flip();
+            });
+
             var board = null
             var game = new Chess()
             var $status = $('#status')
@@ -83,14 +144,7 @@
                 // illegal move
                 if (move === null) return 'snapback'
 
-                // make HTTP POST request
-                $.post('/make_move', {'fen' : game.fen()} ,function(data){
-                    game.move(data.move, { sloppy: true })
-                    board.position(game.fen())
-                    updateStatus()
-                });
-
-                updateStatus()
+                makeMove()
             }
 
             // update the board position after the piece snap
