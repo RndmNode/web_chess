@@ -1,0 +1,8 @@
+server
+/service/internal
+/.vscode
+/__pycache__
+/service/external/src/__pycache__
+*_grpc.py
+*_pb2.py
+*.pb.h
