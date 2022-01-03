@@ -1,6 +1,6 @@
 server
 /service/internal
-/.vscode
+.vscode
 /__pycache__
 /service/external/src/__pycache__
 *_grpc.py
