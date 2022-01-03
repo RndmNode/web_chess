@@ -1,6 +1,6 @@
 import grpc
-import service.external.src.chessEngine_pb2 as pb2
-import service.external.src.chessEngine_pb2_grpc as grpy
+import service.external.chessEngine_pb2 as pb2
+import service.external.chessEngine_pb2_grpc as grpy
 
 PORT = 8080
 

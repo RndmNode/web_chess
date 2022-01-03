@@ -6,3 +6,4 @@ server
 *_grpc.py
 *_pb2.py
 *.pb.h
+*.exe

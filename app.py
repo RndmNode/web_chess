@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, make_response, jsonify
-from service.external.src.client import getAI_move
+from service.external.client import getAI_move
 
 app = Flask(__name__)
 
