@@ -1,10 +1,5 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
-
-# Name of the project
-> Additional information or tagline
-
-A brief description of your project, what it is used for and how does life get
-awesome when someone starts to use it.
+# Web Chess
+> Chess Web application with custom AI accessed via gRPC 
 
 ## Installing / Getting started
 

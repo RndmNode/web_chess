@@ -16,7 +16,6 @@ def make_move():
     AI_move = getAI_move(FEN, depth)
     while AI_move == 'a8a8':
         AI_move = getAI_move(FEN)
-        continue
     return {'move' : AI_move.move}
 
 # main 

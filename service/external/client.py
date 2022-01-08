@@ -2,12 +2,13 @@ import grpc
 import service.external.chessEngine_pb2 as pb2
 import service.external.chessEngine_pb2_grpc as grpy
 
+IP = 'localhost'
 PORT = 8080
 
 class ChessEngineClient(grpy.ChessEngineServicer):
     def __init__(self):
         # setup the port information
-        self.host = 'localhost'
+        self.host = IP
         self.server_port = PORT
 
         # instantiate the channel
