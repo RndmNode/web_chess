@@ -2,7 +2,7 @@ import grpc
 import service.external.chessEngine_pb2 as pb2
 import service.external.chessEngine_pb2_grpc as grpy
 
-IP = 'localhost'
+IP = '35.232.244.114'
 PORT = 8080
 
 class ChessEngineClient(grpy.ChessEngineServicer):
